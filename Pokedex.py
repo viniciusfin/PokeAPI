@@ -1,75 +1,75 @@
 import requests
 
-#lista vazia que será preenchida
-lista_pokemons = []
+url_base = 'http://pokeapi.co/api/v2/'
+url_base_pokemon = url_base + 'pokemon/'
 
-#para os 20 primeiros pokemons (1,21)
-for i in range(1,21):
-    
-    url = 'http://pokeapi.co/api/v2/pokemon/'+ str(i)
-    response = requests.get(url)
-    
-    #condicional de sucesso
-    if response.status_code == 200:
-        
-        dados = response.json()
-        
-        #criando a lista com os 20 pokemons
-        nome_pokemon = dados.get('name')
-        lista_pokemons += [nome_pokemon]
-        print("O nome do pokemon n° %s é:" %i, nome_pokemon +'\n')
-        
 
 #criando classe
 class Pokemon:
     
-    def __init__(self, nome_pokemon, url, peso_pokemon,  habilidades, tipos):
+    def __init__(self, nome, url, peso,  habilidades, tipos):
         
         #molde para o pokemon
-        self.nome_pokemon = nome_pokemon
+        self.nome = nome
         self.url = url
-        self.peso_pokemon = peso_pokemon
+        self.peso = peso
         self.habilidades = habilidades
         self.tipos = tipos
-        
-        
+         
+       
     #representração da classe    
-    def __repr__(self):
-          return f'Pokemon({self.nome_pokemon}, {self.url}, {self.peso_pokemon}, {self.habilidades}, {self.tipos})'
-        
+    def __str__(self):
+          return f'Pokemon({self.nome}, {self.url}, {self.peso}, {self.habilidades}, {self.tipos})'
 
-def main():
-
-    pokemon = str(input('Qual pokemon você gostaria de consultar? :'))
-
-    #listas para serem preenchidas para cada pokemon
-    habilidades=[]
-    tipos=[]
-    
-    #url de cada pokemons
-    url = 'http://pokeapi.co/api/v2/pokemon/'+ pokemon
+         
+def get_pokemon(identificador):
+     
+    url = url_base_pokemon + str(identificador)
     response = requests.get(url)
     
-    #condicional de sucesso
     if response.status_code == 200:
 
         dados = response.json()
+        name_pokemon = dados['name']
 
-        #para pegar mais de 1 habilidade
-        for i in range(0, len(dados['abilities'])):
-            habilidades += [(dados['abilities'][i]['ability']['name'])]
+        
+        weight_pokemon = float(dados['weight'])
         
         
-        #para pegar mais de 1 habilidade
-        for i in range(0, len(dados['types'])):
-            tipos += [(dados['types'][i]['type']['name'])]
+        abilities=[x['ability']['name'] for x in dados['abilities']]
+   
+        tipos=[x['type']['name'] for x in dados['types']]
+        
+        pokemon = Pokemon(name_pokemon, url, weight_pokemon, abilities, tipos)
+        
+        return pokemon
+        
+    else:
+        return None
+        
+
+def main():
+    
+    for i in range(1,21):
+        pokemon = get_pokemon(i) 
+        print(str(pokemon)+'\n')
+
+    while True:
+        identificador = str(input('Qual pokemon você gostaria de consultar? :'))
             
-    pokemons = [Pokemon(dados.get('name'), url, dados.get('weight'), habilidades, tipos)]
-    print('\n' + str(pokemons))
-  
-    next = input("Quer consultar mais pokemons?  :").lower()
-    if next in ['sim', 's', 'y', 'yes', '1']:
-        (main())
+            
+        pokemon = get_pokemon(identificador)
+        
+        if pokemon != None:
+            print('\n' + str(pokemon))
+            
+        else:
+            print("\nErro, verifique se digitou corretamente")
+            
+      
+        next = input("Quer consultar mais pokemons?[S/N]  :").lower()
+        if next not in ['sim', 's', 'y', 'yes', '1', 'ok']:
+            break
     
 if __name__ == '__main__':
     main()
