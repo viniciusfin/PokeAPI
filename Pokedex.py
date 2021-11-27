@@ -1,17 +1,10 @@
 import requests
+from classe_pokemon import Pokemon
 
 url_base = 'https://pokeapi.co/api/v2/'
 url_base_pokemon = url_base + 'pokemon/'
 
-class Pokemon:
-    
-   def __init__(self, nome, url, peso, habilidades, tipo):
-       
-       self.name = nome
-       self.url = url
-       self.weight = peso
-       self.ability = habilidades
-       self.type = tipo    
+class Pokemon:  
        
     #representração da classe    
    def __repr__(self):
