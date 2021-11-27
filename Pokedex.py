@@ -4,11 +4,6 @@ from classe_pokemon import Pokemon
 url_base = 'https://pokeapi.co/api/v2/'
 url_base_pokemon = url_base + 'pokemon/'
 
-class Pokemon:  
-       
-    #representração da classe    
-   def __repr__(self):
-      return f'Pokemon({self.name}, {self.url}, {self.weight}, {self.ability}, {self.type})'
 
 def get_pokemon_api(identificador):
     url = url_base_pokemon + str(identificador)
