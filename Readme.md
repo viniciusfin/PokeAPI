@@ -7,7 +7,7 @@ Existem 3 arquivos que podem ser baixados:
 
 1- Pokédex: Uma versão mais básica e uma Pokédex, que vai listar os primeiros 20 pokémons.
 <br />
-2- Pokédex_v2: Uma versão um pouco mais trabalhada da Pokedéx, possuindo um "menu" com mais funções de consulta.\n
+2- Pokédex_v2: Uma versão um pouco mais trabalhada da Pokedéx, possuindo um "menu" com mais funções de consulta.
 <br />
 3- classe_pokemon: Um arquivo do qual é importada a classe "Pokemon" que é utilizada nos scripts acima.
 
