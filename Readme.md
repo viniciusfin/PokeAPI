@@ -35,5 +35,5 @@ Pokemon(bulbasaur, https://pokeapi.co/api/v2/pokemon/1, 69.0, ['overgrow', 'chlo
 - Nome: bulbasaur
 - Url: https://pokeapi.co/api/v2/pokemon/1
 - Peso: 69.0
-- Habilidades: overgrow e clhrophyll
+- Habilidades: overgrow e chlorophyll
 - Tipo: grass e poison
